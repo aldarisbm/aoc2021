@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
-func getDayOneResult() int {
+func getDayOneResult() (int, int, error) {
 	input, err := getDayInput(1)
 	if err != nil {
-		panic(err)
+		return 0, 0, nil
 	}
 	inputValues, err := getDayOneValues(input)
 	if err != nil {
-		panic(err)
+		return 0, 0, nil
 	}
 	var count = 0
 	for i := 0; i < len(inputValues)-1; i++ {
@@ -20,7 +20,15 @@ func getDayOneResult() int {
 			count++
 		}
 	}
-	return count
+	var secondCount = 0
+	for i := 0; i < len(inputValues)-4; i++ {
+		firstGroup := inputValues[i] + inputValues[i+1] + inputValues[i+2]
+		secondGroup := inputValues[i+2] + inputValues[i+3] + inputValues[i+4]
+		if secondGroup > firstGroup {
+			secondCount++
+		}
+	}
+	return count, secondCount, nil
 }
 
 func getDayOneValues(input string) ([]int, error) {
