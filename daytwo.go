@@ -10,17 +10,18 @@ type DirectionStep struct {
 	Steps     int
 }
 
-func getDayTwoResult() (int, error) {
+func getDayTwoResult() (int, int, error) {
 	input, err := getDayInput(2)
 	if err != nil {
-		return 0, err
+		return 0, 0, err
 	}
 	inputValues, err := getDayTwoValues(input)
 	if err != nil {
-		return 0, err
+		return 0, 0, err
 	}
 	horizontalPos, depthPos := getHorizontalAndDepth(inputValues)
-	return horizontalPos * depthPos, nil
+	secondHorizontalPos, secondDepthPos := getHorizontalAndDepthWithAim(inputValues)
+	return horizontalPos * depthPos, secondHorizontalPos * secondDepthPos, nil
 }
 
 func getDayTwoValues(input string) ([]DirectionStep, error) {
@@ -53,6 +54,22 @@ func getHorizontalAndDepth(input []DirectionStep) (horizontal int, depth int) {
 			depth = depth + elem.Steps
 		case "up":
 			depth = depth - elem.Steps
+		}
+	}
+	return
+}
+
+func getHorizontalAndDepthWithAim(input []DirectionStep) (horizontal int, depth int) {
+	aim := 0
+	for _, elem := range input {
+		switch elem.Direction {
+		case "forward":
+			horizontal += elem.Steps
+			depth += aim * elem.Steps
+		case "down":
+			aim += elem.Steps
+		case "up":
+			aim -= elem.Steps
 		}
 	}
 	return
