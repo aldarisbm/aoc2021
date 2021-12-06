@@ -8,7 +8,10 @@ import (
 )
 
 func getDayInput(day int) (string, error) {
-	cookie := getCookie()
+	cookie, err := getCookie()
+	if err != nil {
+		return "", nil
+	}
 	url := fmt.Sprintf("https://adventofcode.com/2021/day/%d/input", day)
 	client := &http.Client{
 		Timeout: time.Second * 10,
@@ -31,10 +34,10 @@ func getDayInput(day int) (string, error) {
 	return responseBody, nil
 }
 
-func getCookie() string {
+func getCookie() (string, error) {
 	content, err := ioutil.ReadFile("cookie.txt")
 	if err != nil {
-		fmt.Println("Err")
+		return "", err
 	}
-	return string(content)
+	return string(content), nil
 }
