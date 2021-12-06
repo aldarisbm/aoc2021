@@ -21,9 +21,9 @@ func getDayOneResult() (int, int, error) {
 		}
 	}
 	var secondCount = 0
-	for i := 0; i < len(inputValues)-4; i++ {
+	for i := 0; i < len(inputValues)-3; i++ {
 		firstGroup := inputValues[i] + inputValues[i+1] + inputValues[i+2]
-		secondGroup := inputValues[i+2] + inputValues[i+3] + inputValues[i+4]
+		secondGroup := inputValues[i+1] + inputValues[i+2] + inputValues[i+3]
 		if secondGroup > firstGroup {
 			secondCount++
 		}
