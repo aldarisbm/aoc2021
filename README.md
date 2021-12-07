@@ -1,4 +1,4 @@
-You need a `cookie.txt` file with your session cookie for Advent of code, should look like:
+You need a `cookie.txt` file with your session cookie for AOC, should look like:
 
 `session=lotsofnumbers343skssio3`
 
